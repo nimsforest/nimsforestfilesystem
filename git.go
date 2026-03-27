@@ -38,6 +38,12 @@ func NewGitBedrock(name, path string, wind *nim.Wind) *GitBedrock {
 	}
 }
 
+// SetWind sets the Wind instance for emitting bedrock events.
+// Call this after NATS connects if Wind was nil at construction time.
+func (g *GitBedrock) SetWind(wind *nim.Wind) {
+	g.wind = wind
+}
+
 // Start initializes the git repository if needed and emits a mounted event.
 func (g *GitBedrock) Start(ctx context.Context) error {
 	if err := os.MkdirAll(g.path, 0755); err != nil {
